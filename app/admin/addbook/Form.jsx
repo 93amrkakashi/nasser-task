@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { addBook } from '../libs/slices/booksSlice';
+import { addBook } from '../../libs/slices/booksSlice';
 
 const AddBookForm = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const AddBookForm = () => {
     e.preventDefault();
     dispatch(addBook(book))
       .then(() => {
-        router.push('/'); 
+        router.push('/admin'); 
       })
       .catch((error) => {
         console.error('Failed to add book: ', error);

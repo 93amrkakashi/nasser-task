@@ -8,18 +8,37 @@ import { useRouter } from 'next/navigation';
 export default function Signin({ toggleAuth }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const { user, loading, error } = useSelector((state) => state.auth);
-const router = useRouter()
-  const handleSignin = (e) => {
-    e.preventDefault();
-    dispatch(signinUser({ email, password }));
-  };
+  const router = useRouter();
+
   useEffect(() => {
     if (user) {
       router.push("/");
     }
   }, [user, router]);
+
+  const validate = () => {
+    let tempErrors = {};
+    if (!email.trim()) {
+      tempErrors.email = "البريد الإلكتروني مطلوب";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      tempErrors.email = "صيغة البريد الإلكتروني غير صحيحة";
+    }
+    if (!password.trim()) tempErrors.password = "كلمة المرور مطلوبة";
+    
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
+  const handleSignin = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      dispatch(signinUser({ email, password }));
+    }
+  };
+
   return (
     <div className="bg-white p-8 rounded shadow-md">
       <h2 className="text-2xl font-bold mb-6">تسجيل الدخول</h2>
@@ -32,6 +51,7 @@ const router = useRouter()
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">كلمة المرور</label>
@@ -41,6 +61,7 @@ const router = useRouter()
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
         </div>
         <button
           type="submit"

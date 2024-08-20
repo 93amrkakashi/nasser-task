@@ -15,10 +15,10 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="bg-gray-800 p-4 shadow-md fixed top-0 left-0 right-0 z-10">
+    <nav className="w-full bg-gray-800 p-4 shadow-md fixed top-0 left-0 right-0 z-10">
     <div
       dir="ltr"
-      className="container mx-auto flex justify-between items-center"
+      className="w-full px-4 flex justify-between items-center"
     >
       <div className="text-white text-lg font-bold">
         <Link
@@ -50,10 +50,10 @@ export default function NavBar() {
                   onClick={()=>{
                     setDropdownOpen(false)
                   }}
-                  href={"/addbook"}
+                  href={"/admin"}
                     className="text-center block px-4 py-2 w-full hover:bg-gray-100"
                   >
-                    اضافة كتاب
+                    لوحة التحكم
                   </Link>
                 )}
                 <button
