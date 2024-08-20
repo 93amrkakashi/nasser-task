@@ -11,10 +11,8 @@ const EditBookForm = () => {
   const searchParams = useSearchParams();
   const bookId = searchParams.get('id');
   
-  // جلب الكتب من الحالة (state)
   const books = useSelector((state) => state.books);
   
-  // فلترة الكتاب المطلوب بناءً على الـ ID
   const bookFromState = books.find((book) => book.id === bookId);
 
   const [book, setBook] = useState({
@@ -24,7 +22,6 @@ const EditBookForm = () => {
     description: '',
   });
 
-  // جلب الكتب عند تحميل الصفحة أو عندما يتغير ID الكتاب
   useEffect(() => {
     if (bookId && !bookFromState) {
       dispatch(fetchBooks());
