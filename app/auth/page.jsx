@@ -1,23 +1,18 @@
-"use client"
+import AuthMainPage from "./MainPage";
 
-import { useState } from 'react';
-import Signin from './Signin';
-import Signup from './Signup';
+
+
+export const metadata = {
+  title: "تسجيل الدخول",
+  description: "صفحة تسجيل الدخول وانشاء حساب جديد فى الموقع",
+}
+
 
 export default function AuthPage() {
-  const [isSignin, setIsSignin] = useState(true);
 
-  const toggleAuth = () => {
-    setIsSignin(!isSignin);
-  };
+
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      {isSignin ? (
-        <Signin toggleAuth={toggleAuth} />
-      ) : (
-        <Signup toggleAuth={toggleAuth} />
-      )}
-    </div>
+    <AuthMainPage />
   );
 }

@@ -1,20 +1,25 @@
 "use client"
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signinUser } from './auth/authSlice';
+import { signinUser } from '../libs/slices/authSlice';
+import { useRouter } from 'next/navigation';
 
 export default function Signin({ toggleAuth }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth);
-
+  const { user, loading, error } = useSelector((state) => state.auth);
+const router = useRouter()
   const handleSignin = (e) => {
     e.preventDefault();
     dispatch(signinUser({ email, password }));
   };
-
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
   return (
     <div className="bg-white p-8 rounded shadow-md">
       <h2 className="text-2xl font-bold mb-6">تسجيل الدخول</h2>

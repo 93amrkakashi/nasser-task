@@ -1,12 +1,7 @@
-import { store } from '@/store';
-import { Provider } from 'react-redux';
+import BooksPage from "./BooksPage";
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
-  );
+function MyApp() {
+  return <BooksPage />;
 }
 
 export default MyApp;
