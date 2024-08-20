@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signinUser } from '../libs/slices/authSlice';
+import { signinUser } from '../assits/libs/slices/authSlice';
 import { useRouter } from 'next/navigation';
 
 export default function Signin({ toggleAuth }) {

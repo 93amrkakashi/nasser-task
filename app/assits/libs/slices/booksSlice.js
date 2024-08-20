@@ -40,7 +40,7 @@ export const deleteBook = createAsyncThunk('books/deleteBook', async (id) => {
   await fetch(`${API_URL}/${id}`, {
     method: 'DELETE',
   });
-  return id; 
+  return id;
 });
 
 const booksSlice = createSlice({
@@ -48,17 +48,17 @@ const booksSlice = createSlice({
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
-    
+
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
       return action.payload;
     });
 
-    
+
     builder.addCase(addBook.fulfilled, (state, action) => {
       state.push(action.payload);
     });
 
-    
+
     builder.addCase(updateBook.fulfilled, (state, action) => {
       const index = state.findIndex((book) => book.id === action.payload.id);
       if (index !== -1) {
@@ -66,7 +66,7 @@ const booksSlice = createSlice({
       }
     });
 
-    
+
     builder.addCase(deleteBook.fulfilled, (state, action) => {
       return state.filter((book) => book.id !== action.payload);
     });

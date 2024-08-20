@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBooks } from './libs/slices/booksSlice';
 import FilterComponent from './FilterComponent';
-import Image from 'next/image';
+import BookCard from './BookCard';
+import { fetchBooks } from '../libs/slices/booksSlice';
 
 export default function BooksPage() {
   const dispatch = useDispatch();
@@ -38,23 +38,7 @@ export default function BooksPage() {
       <FilterComponent books={books} onFilter={handleFilter} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredBooks.map((book) => (
-          <div key={book.id} className="border rounded-lg shadow bg-white text-text">
-            <div className="h-48 w-full bg-gray-300 text-center flex items-center justify-center">
-            <Image
-                            src={book.image}
-                            width={150}
-                            height={150}
-                            />
-            </div>
-            <div className='p-4'>
-              <h2 className="text-xl text-center font-semibold mb-2 text-gray-900">{book.title}</h2>
-              <div className="w-full px-2 flex justify-between items-center">
-                <p className="text-sm text-gray-700 mb-1">{book.author}</p>
-                <p className="text-sm text-gray-700">{book.category}</p>
-              </div>
-            </div>
-
-          </div>
+          <BookCard book={book} />
         ))}
       </div>
     </div>

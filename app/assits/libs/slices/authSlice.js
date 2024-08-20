@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8000/users';
 
+// Signin Thunk
 export const signinUser = createAsyncThunk(
   'auth/signinUser',
   async (credentials, { rejectWithValue }) => {
@@ -17,7 +18,9 @@ export const signinUser = createAsyncThunk(
       });
 
       if (response.data.length > 0) {
-        return response.data[0];
+        const user = response.data[0];
+        localStorage.setItem('user', JSON.stringify(user)); 
+        return user;
       } else {
         throw new Error('البريد الإلكتروني أو كلمة المرور غير صحيحة');
       }
@@ -27,12 +30,15 @@ export const signinUser = createAsyncThunk(
   }
 );
 
+// Signup Thunk
 export const signupUser = createAsyncThunk(
   'auth/signupUser',
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(API_URL, userData);
-      return response.data;
+      const user = response.data;
+      localStorage.setItem('user', JSON.stringify(user)); 
+      return user;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -40,7 +46,7 @@ export const signupUser = createAsyncThunk(
 );
 
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem('user')) || null, 
   loading: false,
   error: null,
 };
@@ -51,9 +57,11 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
+      localStorage.removeItem('user');
     },
     setUser: (state, action) => {
       state.user = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
   },
   extraReducers: (builder) => {
@@ -77,7 +85,6 @@ const authSlice = createSlice({
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
-
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;

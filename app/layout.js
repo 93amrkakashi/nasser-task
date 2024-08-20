@@ -1,7 +1,7 @@
 import { Cairo } from "next/font/google";
-import NavBar from "./comps/Navbar";
 import "./globals.css";
-import StoreProvider from "./libs/StoreProvider";
+import StoreProvider from "./assits/libs/StoreProvider";
+import NavBar from "./assits/comps/Navbar";
 
 const cairo = Cairo({ subsets: ["latin"] });
 
