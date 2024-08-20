@@ -19,7 +19,6 @@ export const signinUser = createAsyncThunk(
 
       if (response.data.length > 0) {
         const user = response.data[0];
-        localStorage.setItem('user', JSON.stringify(user)); 
         return user;
       } else {
         throw new Error('البريد الإلكتروني أو كلمة المرور غير صحيحة');
@@ -37,7 +36,6 @@ export const signupUser = createAsyncThunk(
     try {
       const response = await axios.post(API_URL, userData);
       const user = response.data;
-      localStorage.setItem('user', JSON.stringify(user)); 
       return user;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -46,7 +44,7 @@ export const signupUser = createAsyncThunk(
 );
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem('user')) || null, 
+  user:  null, 
   loading: false,
   error: null,
 };
@@ -57,11 +55,9 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
-      localStorage.removeItem('user');
     },
     setUser: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem('user', JSON.stringify(action.payload));
     },
   },
   extraReducers: (builder) => {

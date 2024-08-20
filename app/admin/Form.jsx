@@ -16,6 +16,7 @@ const BookForm = () => {
   const bookFromState = books.find((book) => book.id === bookId);
 
   const [book, setBook] = useState({
+    id:Date.now(),
     title: '',
     author: '',
     category: '',
