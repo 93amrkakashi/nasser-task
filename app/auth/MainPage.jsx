@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Signin from './Signin';
 import Signup from './Signup';
 
 export default function AuthMainPage() {
   const [isSignin, setIsSignin] = useState(true);
 
-  const toggleAuth = () => {
-    setIsSignin(!isSignin);
-  };
+  const toggleAuth = useCallback(() => {
+    setIsSignin((prev) => !prev);
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">

@@ -80,7 +80,6 @@
       "image": "https://st-takla.org/Gallery/var/albums/Books/General-and-Writing/www-St-Takla-org--Books-01.gif?m=1419425451",
       "description": "رواية تسرد قصة شاب يجد نفسه في صراع مع المجتمع الذي يعيش فيه."
     }
- 
   ],
   "users": [
     {
@@ -109,6 +108,13 @@
       "name": "amr ali",
       "email": "test77@gmail.com",
       "password": "22222222",
+      "role": "user"
+    },
+    {
+      "id": "399d",
+      "name": "ييييي",
+      "email": "rest@gmail.com",
+      "password": "222222",
       "role": "user"
     }
   ]

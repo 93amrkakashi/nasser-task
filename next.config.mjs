@@ -7,6 +7,11 @@ const nextConfig = {
                 hostname: 'st-takla.org',
                 pathname: '**',
             },
+            {
+              protocol: 'https',
+              hostname: 'www.transparentpng.com',
+              pathname: '**',
+          },
         ],
     }
 };

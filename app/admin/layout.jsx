@@ -11,7 +11,7 @@ export default function DashLayout({ children }) {
     if (!user) {
       router.push("/")
     }
-  }, []);
+  }, [router,user]);
 
   return (
     <div className="w-full min-h-[80vh] bg-gray-100 flex flex-col justify-start items-start">

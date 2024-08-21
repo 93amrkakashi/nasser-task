@@ -1,13 +1,13 @@
 "use client";
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const API_URL = 'http://localhost:8000/users';
+const API_URL = "http://localhost:8000/users";
 
 // Signin Thunk
 export const signinUser = createAsyncThunk(
-  'auth/signinUser',
+  "auth/signinUser",
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.get(API_URL, {
@@ -21,7 +21,7 @@ export const signinUser = createAsyncThunk(
         const user = response.data[0];
         return user;
       } else {
-        throw new Error('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+        throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة");
       }
     } catch (error) {
       return rejectWithValue(error.message);
@@ -31,7 +31,7 @@ export const signinUser = createAsyncThunk(
 
 // Signup Thunk
 export const signupUser = createAsyncThunk(
-  'auth/signupUser',
+  "auth/signupUser",
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(API_URL, userData);
@@ -44,13 +44,13 @@ export const signupUser = createAsyncThunk(
 );
 
 const initialState = {
-  user:  null, 
+  user: null,
   loading: false,
   error: null,
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     logout: (state) => {

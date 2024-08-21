@@ -1,63 +1,55 @@
 "use client";
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+const API_URL = "http://localhost:8000/books";
 
-const API_URL = 'http://localhost:8000/books';
-
-
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
+export const fetchBooks = createAsyncThunk("books/fetchBooks", async () => {
   const response = await fetch(API_URL);
   return response.json();
 });
 
-
-export const addBook = createAsyncThunk('books/addBook', async (book) => {
+export const addBook = createAsyncThunk("books/addBook", async (book) => {
   const response = await fetch(API_URL, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(book),
   });
   return response.json();
 });
 
-
-export const updateBook = createAsyncThunk('books/updateBook', async (book) => {
+export const updateBook = createAsyncThunk("books/updateBook", async (book) => {
   const response = await fetch(`${API_URL}/${book.id}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(book),
   });
   return response.json();
 });
 
-
-export const deleteBook = createAsyncThunk('books/deleteBook', async (id) => {
+export const deleteBook = createAsyncThunk("books/deleteBook", async (id) => {
   await fetch(`${API_URL}/${id}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
   return id;
 });
 
 const booksSlice = createSlice({
-  name: 'books',
+  name: "books",
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
-
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
       return action.payload;
     });
 
-
     builder.addCase(addBook.fulfilled, (state, action) => {
       state.push(action.payload);
     });
-
 
     builder.addCase(updateBook.fulfilled, (state, action) => {
       const index = state.findIndex((book) => book.id === action.payload.id);
@@ -65,7 +57,6 @@ const booksSlice = createSlice({
         state[index] = action.payload;
       }
     });
-
 
     builder.addCase(deleteBook.fulfilled, (state, action) => {
       return state.filter((book) => book.id !== action.payload);

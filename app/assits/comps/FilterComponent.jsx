@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 
-export default function FilterComponent({ books, onFilter }) {
+function FilterComponent({ books, onFilter }) {
   const [filterType, setFilterType] = useState('');
   const [selectedValue, setSelectedValue] = useState('');
 
-  const authors = [...new Set(books.map((book) => book.author))];
-  const categories = [...new Set(books.map((book) => book.category))];
+  const authors = useMemo(() => [...new Set(books.map((book) => book.author))], [books]);
+  const categories = useMemo(() => [...new Set(books.map((book) => book.category))], [books]);
 
-  const handleFilterTypeChange = (e) => {
+  const handleFilterTypeChange = useCallback((e) => {
     setFilterType(e.target.value);
     setSelectedValue(''); 
-  };
+  }, []);
 
-  const handleValueChange = (e) => {
+  const handleValueChange = useCallback((e) => {
     setSelectedValue(e.target.value);
     onFilter({ [filterType]: e.target.value }); 
-  };
+  }, [filterType, onFilter]);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setFilterType('');
     setSelectedValue('');
     onFilter({}); 
-  };
+  }, [onFilter]);
 
   return (
     <div className="mb-4 flex justify-start items-center gap-4">
-      <div className="">
+      <div>
         <label className="mr-2">اختر نوع الفلتر{" "}:{" "}</label> 
         <select value={filterType} onChange={handleFilterTypeChange} className="px-4 border rounded">
           <option value="">اختر نوع الفلتر</option>
@@ -62,10 +62,12 @@ export default function FilterComponent({ books, onFilter }) {
 
       <button 
         onClick={handleReset} 
-        className="p-2 bg-secondary text-white rounded"
+        className="p-2 bg-blue-700 text-white rounded"
       >
         إلغاء الفلترة
       </button>
     </div>
   );
 }
+
+export default React.memo(FilterComponent);
